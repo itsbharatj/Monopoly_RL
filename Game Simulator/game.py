@@ -1,5 +1,5 @@
 '''
-This is the main game simulator for Monopoly. 
+This is the main game simulator for Monopoly. All the objects and the controls will be here
 Given the simulator, we have a state space that needs to be moved
 
 Utils: 
