@@ -58,6 +58,35 @@ class Player:
     def mortgage(self,required_money): 
         ## Now what to morgage, is a decision of the agent - which would result in a "smart behaviour" --> Consider the property that is the being chosen is a random property, which should be greater than the rent that is paid
         money_got = 0
+        chosen_mortgaged_properties = []
         while(required_money >= money_got): 
-            property = random.choice(self.properties.options)
+            
+            ## Choose a property which is not already mortgaged. Keep choosing until you find one which is not, stop when you have choosen all the options. Do not choose a property more than once. 
+            chosen = True
+            properties = []
+            while(chosen): 
+                mortgaged_property = random.choice(self.properties)
+                if not mortgaged_property.mortgaged: 
+                    chosen = False
+                    mortgaged_property.mortgaged = True
+                else: 
+                    if mortgaged_property not in properties: 
+                        properties.append(mortgaged_property)
+                
+                if (len(properties) == len(self.properties)): 
+                    self.bankrupt()
+                    return False
+
+
+            chosen_mortgaged_properties.append(random.choice(self.properties))
+            money_got += chosen_mortgaged_properties.mortgage_value
+
+    def bankrupt(): 
+        print("The player is now bankrupted!!! Game over for them")
+        ## Stop the execution here itself
+        
+
+
+            
+            
             

@@ -1,6 +1,14 @@
 '''
 This contains the class of the all properties of the agent. 
 We can have a class, for each individual property, and one class for the all the properties 
+
+WHAT ARE THE PROPERTY TYPES AND THINGS IN MONOPOLY THAT I NEED TO KNOW 
+
+Make 4x houses, cost of each? 
+HOUSE
+
+Cost of each hotel?
+HOTEL 
 # '''
 
 
@@ -47,8 +55,8 @@ monopoly_properties = {
 
 
 class Property: 
-    def __init__(self,name,data):
-        self.name = name
+    def __init__(self,owner,data):
+        self.owner = owner ## This is the Owner (Agent) object, which is passed as parameter here
         self.houses = 0
         self.hotel = 0
         self.mortgage_value = data[0]
@@ -65,6 +73,8 @@ class Property:
         self.mortgaged = False 
     
     def get_rent(self): 
+        '''
+        '''
         pass
 
 class Game_Properties:
@@ -76,10 +86,28 @@ class Game_Properties:
     def __init__(self): 
         self.properties_dict = monopoly_properties
         self.property = []
-        for i in self.properties_dict:
-            self.properties_dict.append(Property(i,self.properties_dict[i]))
-            self.make 
-         
+        # for i in self.properties_dict:
+        #     self.properties_dict.append(Property(i,self.properties_dict[i]))
+        #     self.make 
+        
+    def take_rent(self,property,agent_landed): 
+        '''
+            Inputs (Objects): Property, Agent Landed (Agent)
+        '''
+        owner = property.owner ##The owner object
+
+        rent = property.rent
+        if agent_landed.money > rent:
+            owner.money += rent 
+            agent_landed.money -= rent
+        else:
+            agent_landed.mortgage(rent) ## Need to add this, should be a characteristic of the agent, not the property - as they will not necessarily mortgate this property.
+            self.take_rent(property,agent_landed)
+
+            
+        
+
+
 
 
 
