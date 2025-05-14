@@ -17,11 +17,12 @@
 from utils import roll_dice
 import random
 
-class Agent: 
+class Player: 
     def __init__(self):
-        self.money = 100 ## Need to be precise to what is actually given in the game 
+        self.money = 1500 ## $1500 USD as the starting money to each player in the beginning
         self.properties = []
         self.position = 0
+        self.get_out_of_jail = 0
     
     def move_forward(self): 
         (d1,d2) = roll_dice()
