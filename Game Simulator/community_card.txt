@@ -14,3 +14,8 @@
 14. Take a trip to Reading Railroad. If you pass Go, collect $200.
 15. You have been elected Chairman of the Board. Pay each player $50.
 16. Your building loan matures. Collect $150    
+
+import random
+
+
+

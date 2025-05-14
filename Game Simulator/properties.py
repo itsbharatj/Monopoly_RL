@@ -1,3 +1,4 @@
+import random
 from utils import board_extras
 
 '''
@@ -11,36 +12,136 @@ HOUSE
 
 Cost of each hotel?
 HOTEL 
-# '''
+'''
 
-def go():
+
+def go(agent,g_400=False):
+    if not g_400: 
+        agent.money += 200 
+    else: 
+        agent.money += 400
+
+## Class for this as well lol -- need to maintian  a
+    
+# def community_chest(agent):    
+#     pass
+
+class community_chest: 
+    def __init__(self): 
+        self.cards = [i for i in range(0,16)]
+        random.shuffle(self.cards)
+        self.cards_file_path = f'community_card.txt'
+        self.current_pointer = 16
+        self.card_actions = {
+            1: self.boardwork,
+            2: self.GO,
+            3: self.illonois,
+            4: self.st_charles_place, 
+            5: self.nearest_railroad, 
+            6: self.nearest_railroad,  # Confirmed duplicate
+            7: self.divident, 
+            8: self.free_jail, 
+            9: self.go_back, 
+            10: self.go_to_jail, 
+            11: self.repairs, 
+            12: self.speeding_fine, 
+            13: self.nearest_util, 
+            14: self.reading_railroad, 
+            15: self.chairman, 
+            16: self.loan_matured
+        }
+    
+    def GO(): 
+        pass
+    
+    def draw_card(self,agent): 
+        if self.current_pointer == 0: 
+            self.current_pointer = 16
+            random.shuffle(self.cards)
+
+        choice_number = random.choice(self.cards)
+        index_of_choice = self.cards.index(choice_number)
+
+        self.cards[self.current_pointer], self.cards[index_of_choice] = self.cards[index_of_choice], self.cards[self.current_pointer]
+        self.current_pointer-=1
+
+        self.read_card(choice_number+1,agent)
+
+    def read_card(self,choice_number,agent): 
+        action = self.card_actions.get(choice_number)
+        action(agent)
+
+
+    def boardwork(self, agent): 
+        print(f"{agent.name} goes to boardwork action.")
+
+    def illonois(self, agent): 
+        print(f"{agent.name} moves to Illinois Avenue.")
+
+    def st_charles_place(self, agent): 
+        print(f"{agent.name} moves to St. Charles Place.")
+
+    def nearest_railroad(self, agent): 
+        print(f"{agent.name} moves to the nearest railroad.")
+
+    def divident(self, agent): 
+        print(f"{agent.name} receives a dividend of $50.")
+        agent.money += 50
+
+    def free_jail(self, agent): 
+        print(f"{agent.name} receives a 'Get Out of Jail Free' card.")
+
+    def go_back(self, agent): 
+        print(f"{agent.name} goes back 3 spaces.")
+
+    def go_to_jail(self, agent): 
+        print(f"{agent.name} is sent to jail!")
+
+    def repairs(self, agent): 
+        print(f"{agent.name} pays for property repairs.")
+
+    def speeding_fine(self, agent): 
+        print(f"{agent.name} pays a speeding fine of $15.")
+        agent.money -= 15
+
+    def nearest_util(self, agent): 
+        print(f"{agent.name} moves to the nearest utility.")
+
+    def reading_railroad(self, agent): 
+        print(f"{agent.name} moves to Reading Railroad.")
+
+    def chairman(self, agent): 
+        print(f"{agent.name} pays each player $50.")
+
+    def loan_matured(self, agent): 
+        print(f"{agent.name} collects $150 from a matured loan.")
+        agent.money += 150
+
+
+def income_tax(agent):
     pass
 
-def community_chest():
+def chance(agent):
     pass
 
-def income_tax(amount):
+def jail(agent):
     pass
 
-def chance():
-    pass
 
-def jail():
-    pass
-
+## This can be a class - because it involves ownership and rentals etc. 
 def electric_company():
-    pass
-
-def free_parking():
     pass
 
 def water_works():
     pass
 
-def go_to_jail():
+def free_parking():
+    print("Landed in free parking")
+
+def go_to_jail(agent):
     pass
 
-def luxury_tax(amount):
+def luxury_tax(agent):
     pass
 
 
@@ -54,7 +155,7 @@ def luxury_tax(amount):
 # Rent (4 Houses)
 # Rent (Hotel)
 
-monopoly_board = {
+monopoly_properties = {
     0: go(),  # Go
     1: ["Mediterranean Avenue",   [60, 30, 2, 10, 30, 90, 160, 250, "Brown", 50]],
     2: community_chest(),
